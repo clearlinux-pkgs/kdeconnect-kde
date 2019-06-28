@@ -6,7 +6,7 @@
 #
 Name     : kdeconnect-kde
 Version  : 1.3.4
-Release  : 1
+Release  : 2
 URL      : https://download.kde.org/stable/kdeconnect/1.3.4/kdeconnect-kde-1.3.4.tar.xz
 Source0  : https://download.kde.org/stable/kdeconnect/1.3.4/kdeconnect-kde-1.3.4.tar.xz
 Source99 : https://download.kde.org/stable/kdeconnect/1.3.4/kdeconnect-kde-1.3.4.tar.xz.sig
@@ -22,7 +22,9 @@ BuildRequires : buildreq-cmake
 BuildRequires : buildreq-kde
 BuildRequires : kwayland-dev
 BuildRequires : libX11-dev libICE-dev libSM-dev libXau-dev libXcomposite-dev libXcursor-dev libXdamage-dev libXdmcp-dev libXext-dev libXfixes-dev libXft-dev libXi-dev libXinerama-dev libXi-dev libXmu-dev libXpm-dev libXrandr-dev libXrender-dev libXres-dev libXScrnSaver-dev libXt-dev libXtst-dev libXv-dev libXxf86misc-dev libXxf86vm-dev
+BuildRequires : libfakekey-dev
 BuildRequires : pkg-config
+BuildRequires : pkgconfig(libfakekey)
 BuildRequires : qca-qt5-dev
 BuildRequires : qtbase-dev mesa-dev
 
@@ -93,9 +95,10 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1557277068
+export SOURCE_DATE_EPOCH=1561730740
 mkdir -p clr-build
 pushd clr-build
+export GCC_IGNORE_WERROR=1
 export CFLAGS="$CFLAGS -fno-lto "
 export FCFLAGS="$CFLAGS -fno-lto "
 export FFLAGS="$CFLAGS -fno-lto "
@@ -105,7 +108,7 @@ make  %{?_smp_mflags}
 popd
 
 %install
-export SOURCE_DATE_EPOCH=1557277068
+export SOURCE_DATE_EPOCH=1561730740
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/kdeconnect-kde
 cp COPYING %{buildroot}/usr/share/package-licenses/kdeconnect-kde/COPYING
