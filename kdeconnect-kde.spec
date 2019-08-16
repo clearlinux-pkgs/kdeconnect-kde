@@ -5,11 +5,11 @@
 # Source0 file verified with key 0x873AC3459BBCF5C0 (nicolas.fella@kdab.com)
 #
 Name     : kdeconnect-kde
-Version  : 1.3.4
-Release  : 2
-URL      : https://download.kde.org/stable/kdeconnect/1.3.4/kdeconnect-kde-1.3.4.tar.xz
-Source0  : https://download.kde.org/stable/kdeconnect/1.3.4/kdeconnect-kde-1.3.4.tar.xz
-Source99 : https://download.kde.org/stable/kdeconnect/1.3.4/kdeconnect-kde-1.3.4.tar.xz.sig
+Version  : 1.3.5
+Release  : 3
+URL      : https://download.kde.org/stable/kdeconnect/1.3.5/kdeconnect-kde-1.3.5.tar.xz
+Source0  : https://download.kde.org/stable/kdeconnect/1.3.5/kdeconnect-kde-1.3.5.tar.xz
+Source1 : https://download.kde.org/stable/kdeconnect/1.3.5/kdeconnect-kde-1.3.5.tar.xz.sig
 Summary  : No detailed summary available
 Group    : Development/Tools
 License  : GPL-2.0
@@ -88,27 +88,28 @@ locales components for the kdeconnect-kde package.
 
 
 %prep
-%setup -q -n kdeconnect-kde-1.3.4
+%setup -q -n kdeconnect-kde-1.3.5
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
-export LANG=C
-export SOURCE_DATE_EPOCH=1561730740
+export LANG=C.UTF-8
+export SOURCE_DATE_EPOCH=1565961566
 mkdir -p clr-build
 pushd clr-build
+# -Werror is for werrorists
 export GCC_IGNORE_WERROR=1
 export CFLAGS="$CFLAGS -fno-lto "
 export FCFLAGS="$CFLAGS -fno-lto "
 export FFLAGS="$CFLAGS -fno-lto "
 export CXXFLAGS="$CXXFLAGS -fno-lto "
 %cmake ..
-make  %{?_smp_mflags}
+make  %{?_smp_mflags} VERBOSE=1
 popd
 
 %install
-export SOURCE_DATE_EPOCH=1561730740
+export SOURCE_DATE_EPOCH=1565961566
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/kdeconnect-kde
 cp COPYING %{buildroot}/usr/share/package-licenses/kdeconnect-kde/COPYING
@@ -122,6 +123,8 @@ popd
 %find_lang kdeconnect-kio
 %find_lang kdeconnect-plugins
 %find_lang plasma_applet_org.kde.kdeconnect
+%find_lang kdeconnect-fileitemaction
+%find_lang kdeconnect-nautilus-extension
 %find_lang kdeconnect-urlhandler
 
 %files
@@ -136,6 +139,7 @@ popd
 
 %files data
 %defattr(-,root,root,-)
+/usr/share/applications/org.kde.kdeconnect.daemon.desktop
 /usr/share/applications/org.kde.kdeconnect.kcm.desktop
 /usr/share/applications/org.kde.kdeconnect.nonplasma.desktop
 /usr/share/applications/org.kde.kdeconnect.telhandler.desktop
@@ -185,7 +189,7 @@ popd
 /usr/share/plasma/plasmoids/org.kde.kdeconnect/contents/ui/Sftp.qml
 /usr/share/plasma/plasmoids/org.kde.kdeconnect/contents/ui/main.qml
 /usr/share/plasma/plasmoids/org.kde.kdeconnect/metadata.desktop
-/usr/share/xdg/autostart/kdeconnectd.desktop
+/usr/share/xdg/autostart/org.kde.kdeconnect.daemon.desktop
 
 %files doc
 %defattr(0644,root,root,0755)
@@ -195,11 +199,11 @@ popd
 %files lib
 %defattr(-,root,root,-)
 /usr/lib64/libkdeconnectcore.so.1
-/usr/lib64/libkdeconnectcore.so.1.3.4
+/usr/lib64/libkdeconnectcore.so.1.3.5
 /usr/lib64/libkdeconnectinterfaces.so.1
-/usr/lib64/libkdeconnectinterfaces.so.1.3.4
+/usr/lib64/libkdeconnectinterfaces.so.1.3.5
 /usr/lib64/libkdeconnectpluginkcm.so.1
-/usr/lib64/libkdeconnectpluginkcm.so.1.3.4
+/usr/lib64/libkdeconnectpluginkcm.so.1.3.5
 /usr/lib64/qt5/plugins/kcm_kdeconnect.so
 /usr/lib64/qt5/plugins/kdeconnect/kdeconnect_battery.so
 /usr/lib64/qt5/plugins/kdeconnect/kdeconnect_clipboard.so
@@ -231,6 +235,6 @@ popd
 %defattr(0644,root,root,0755)
 /usr/share/package-licenses/kdeconnect-kde/COPYING
 
-%files locales -f kdeconnect-cli.lang -f kdeconnect-core.lang -f kdeconnect-kcm.lang -f kdeconnect-kded.lang -f kdeconnect-kio.lang -f kdeconnect-plugins.lang -f plasma_applet_org.kde.kdeconnect.lang -f kdeconnect-urlhandler.lang
+%files locales -f kdeconnect-cli.lang -f kdeconnect-core.lang -f kdeconnect-kcm.lang -f kdeconnect-kded.lang -f kdeconnect-kio.lang -f kdeconnect-plugins.lang -f plasma_applet_org.kde.kdeconnect.lang -f kdeconnect-fileitemaction.lang -f kdeconnect-nautilus-extension.lang -f kdeconnect-urlhandler.lang
 %defattr(-,root,root,-)
 
