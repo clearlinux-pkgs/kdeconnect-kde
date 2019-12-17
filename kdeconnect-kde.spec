@@ -5,12 +5,12 @@
 # Source0 file verified with key 0x873AC3459BBCF5C0 (nicolas.fella@kdab.com)
 #
 Name     : kdeconnect-kde
-Version  : 1.3.5
-Release  : 3
-URL      : https://download.kde.org/stable/kdeconnect/1.3.5/kdeconnect-kde-1.3.5.tar.xz
-Source0  : https://download.kde.org/stable/kdeconnect/1.3.5/kdeconnect-kde-1.3.5.tar.xz
-Source1 : https://download.kde.org/stable/kdeconnect/1.3.5/kdeconnect-kde-1.3.5.tar.xz.sig
-Summary  : No detailed summary available
+Version  : 1.4
+Release  : 4
+URL      : https://download.kde.org/stable/kdeconnect/1.4/kdeconnect-kde-1.4.tar.xz
+Source0  : https://download.kde.org/stable/kdeconnect/1.4/kdeconnect-kde-1.4.tar.xz
+Source1  : https://download.kde.org/stable/kdeconnect/1.4/kdeconnect-kde-1.4.tar.xz.sig
+Summary  : Adds communication between KDE and your smartphone
 Group    : Development/Tools
 License  : GPL-2.0
 Requires: kdeconnect-kde-bin = %{version}-%{release}
@@ -20,20 +20,19 @@ Requires: kdeconnect-kde-license = %{version}-%{release}
 Requires: kdeconnect-kde-locales = %{version}-%{release}
 BuildRequires : buildreq-cmake
 BuildRequires : buildreq-kde
+BuildRequires : kirigami2-dev
+BuildRequires : kpeople-dev
 BuildRequires : kwayland-dev
 BuildRequires : libX11-dev libICE-dev libSM-dev libXau-dev libXcomposite-dev libXcursor-dev libXdamage-dev libXdmcp-dev libXext-dev libXfixes-dev libXft-dev libXi-dev libXinerama-dev libXi-dev libXmu-dev libXpm-dev libXrandr-dev libXrender-dev libXres-dev libXScrnSaver-dev libXt-dev libXtst-dev libXv-dev libXxf86misc-dev libXxf86vm-dev
 BuildRequires : libfakekey-dev
 BuildRequires : pkg-config
 BuildRequires : pkgconfig(libfakekey)
+BuildRequires : pkgconfig(qca2-qt5)
 BuildRequires : qca-qt5-dev
 BuildRequires : qtbase-dev mesa-dev
 
 %description
-This simple plugin will just listen to "kdeconnect.telephony" like the telephony
-plugin does. It reads the field "event", to see if it is "ringing" or "talking"
-and then pauses all the music/video players reachable through MPRIS. When the
-same kind of package is received but the boolean "isCancel" is set to true, it
-will resume the playback of all the paused sources.
+KDE Connect provides several features to integrate your phone and your computer
 
 %package bin
 Summary: bin components for the kdeconnect-kde package.
@@ -88,31 +87,31 @@ locales components for the kdeconnect-kde package.
 
 
 %prep
-%setup -q -n kdeconnect-kde-1.3.5
+%setup -q -n kdeconnect-kde-1.4
+cd %{_builddir}/kdeconnect-kde-1.4
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1565961566
+export SOURCE_DATE_EPOCH=1576609371
 mkdir -p clr-build
 pushd clr-build
-# -Werror is for werrorists
 export GCC_IGNORE_WERROR=1
 export CFLAGS="$CFLAGS -fno-lto "
 export FCFLAGS="$CFLAGS -fno-lto "
 export FFLAGS="$CFLAGS -fno-lto "
 export CXXFLAGS="$CXXFLAGS -fno-lto "
 %cmake ..
-make  %{?_smp_mflags} VERBOSE=1
+make  %{?_smp_mflags}  VERBOSE=1
 popd
 
 %install
-export SOURCE_DATE_EPOCH=1565961566
+export SOURCE_DATE_EPOCH=1576609371
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/kdeconnect-kde
-cp COPYING %{buildroot}/usr/share/package-licenses/kdeconnect-kde/COPYING
+cp %{_builddir}/kdeconnect-kde-1.4/COPYING %{buildroot}/usr/share/package-licenses/kdeconnect-kde/4cc77b90af91e615a64ae04893fdffa7939db84c
 pushd clr-build
 %make_install
 popd
@@ -133,16 +132,25 @@ popd
 
 %files bin
 %defattr(-,root,root,-)
+/usr/bin/kdeconnect-app
 /usr/bin/kdeconnect-cli
 /usr/bin/kdeconnect-handler
 /usr/bin/kdeconnect-indicator
+/usr/bin/kdeconnect-settings
+/usr/bin/kdeconnect-sms
 
 %files data
 %defattr(-,root,root,-)
+/usr/share/Thunar/sendto/kdeconnect-thunar.desktop
+/usr/share/applications/org.kde.kdeconnect.app.desktop
 /usr/share/applications/org.kde.kdeconnect.daemon.desktop
 /usr/share/applications/org.kde.kdeconnect.kcm.desktop
 /usr/share/applications/org.kde.kdeconnect.nonplasma.desktop
+/usr/share/applications/org.kde.kdeconnect.sms.desktop
+/usr/share/applications/org.kde.kdeconnect.smshandler.desktop
 /usr/share/applications/org.kde.kdeconnect.telhandler.desktop
+/usr/share/applications/org.kde.kdeconnect_open.desktop
+/usr/share/contractor/kdeconnect.contract
 /usr/share/dbus-1/services/org.kde.kdeconnect.service
 /usr/share/icons/hicolor/128x128/apps/kdeconnect.png
 /usr/share/icons/hicolor/16x16/apps/kdeconnect.png
@@ -158,9 +166,14 @@ popd
 /usr/share/icons/hicolor/32x32/status/tabletconnected.png
 /usr/share/icons/hicolor/32x32/status/tabletdisconnected.png
 /usr/share/icons/hicolor/32x32/status/tablettrusted.png
+/usr/share/icons/hicolor/32x32/status/tvconnected.png
+/usr/share/icons/hicolor/32x32/status/tvdisconnected.png
+/usr/share/icons/hicolor/32x32/status/tvtrusted.png
 /usr/share/icons/hicolor/48x48/apps/kdeconnect.png
 /usr/share/icons/hicolor/64x64/apps/kdeconnect.png
 /usr/share/icons/hicolor/scalable/apps/kdeconnect.svgz
+/usr/share/icons/hicolor/scalable/apps/kdeconnectindicator.svg
+/usr/share/icons/hicolor/scalable/apps/kdeconnectindicatordark.svg
 /usr/share/icons/hicolor/scalable/status/laptopconnected.svg
 /usr/share/icons/hicolor/scalable/status/laptopdisconnected.svg
 /usr/share/icons/hicolor/scalable/status/laptoptrusted.svg
@@ -170,26 +183,31 @@ popd
 /usr/share/icons/hicolor/scalable/status/tabletconnected.svg
 /usr/share/icons/hicolor/scalable/status/tabletdisconnected.svg
 /usr/share/icons/hicolor/scalable/status/tablettrusted.svg
+/usr/share/icons/hicolor/scalable/status/tvconnected.svg
+/usr/share/icons/hicolor/scalable/status/tvdisconnected.svg
+/usr/share/icons/hicolor/scalable/status/tvtrusted.svg
 /usr/share/knotifications5/kdeconnect.notifyrc
 /usr/share/kservices5/kcm_kdeconnect.desktop
-/usr/share/kservices5/kdeconnect_pausemusic_config.desktop
 /usr/share/kservices5/kdeconnect_runcommand_config.desktop
 /usr/share/kservices5/kdeconnect_sendnotifications_config.desktop
 /usr/share/kservices5/kdeconnect_share_config.desktop
-/usr/share/kservices5/kdeconnectsendfile.desktop
 /usr/share/kservices5/plasma-kdeconnect.desktop
 /usr/share/kservicetypes5/kdeconnect_plugin.desktop
 /usr/share/metainfo/org.kde.kdeconnect.kcm.appdata.xml
 /usr/share/nautilus-python/extensions/kdeconnect-share.py
 /usr/share/plasma/plasmoids/org.kde.kdeconnect/contents/ui/Battery.qml
+/usr/share/plasma/plasmoids/org.kde.kdeconnect/contents/ui/CompactRepresentation.qml
 /usr/share/plasma/plasmoids/org.kde.kdeconnect/contents/ui/DeviceDelegate.qml
 /usr/share/plasma/plasmoids/org.kde.kdeconnect/contents/ui/FindMyPhone.qml
 /usr/share/plasma/plasmoids/org.kde.kdeconnect/contents/ui/FullRepresentation.qml
-/usr/share/plasma/plasmoids/org.kde.kdeconnect/contents/ui/RemoteKeyboard.qml
+/usr/share/plasma/plasmoids/org.kde.kdeconnect/contents/ui/RemoteCommands.qml
+/usr/share/plasma/plasmoids/org.kde.kdeconnect/contents/ui/SMS.qml
 /usr/share/plasma/plasmoids/org.kde.kdeconnect/contents/ui/Sftp.qml
+/usr/share/plasma/plasmoids/org.kde.kdeconnect/contents/ui/Share.qml
 /usr/share/plasma/plasmoids/org.kde.kdeconnect/contents/ui/main.qml
 /usr/share/plasma/plasmoids/org.kde.kdeconnect/metadata.desktop
 /usr/share/xdg/autostart/org.kde.kdeconnect.daemon.desktop
+/usr/share/zsh/site-functions/_kdeconnect
 
 %files doc
 %defattr(0644,root,root,0755)
@@ -199,41 +217,48 @@ popd
 %files lib
 %defattr(-,root,root,-)
 /usr/lib64/libkdeconnectcore.so.1
-/usr/lib64/libkdeconnectcore.so.1.3.5
+/usr/lib64/libkdeconnectcore.so.1.4.0
 /usr/lib64/libkdeconnectinterfaces.so.1
-/usr/lib64/libkdeconnectinterfaces.so.1.3.5
+/usr/lib64/libkdeconnectinterfaces.so.1.4.0
 /usr/lib64/libkdeconnectpluginkcm.so.1
-/usr/lib64/libkdeconnectpluginkcm.so.1.3.5
+/usr/lib64/libkdeconnectpluginkcm.so.1.4.0
+/usr/lib64/libkdeconnectsmshelper.so.1
+/usr/lib64/libkdeconnectsmshelper.so.1.4.0
 /usr/lib64/qt5/plugins/kcm_kdeconnect.so
 /usr/lib64/qt5/plugins/kdeconnect/kdeconnect_battery.so
 /usr/lib64/qt5/plugins/kdeconnect/kdeconnect_clipboard.so
+/usr/lib64/qt5/plugins/kdeconnect/kdeconnect_contacts.so
 /usr/lib64/qt5/plugins/kdeconnect/kdeconnect_findmyphone.so
+/usr/lib64/qt5/plugins/kdeconnect/kdeconnect_lockdevice.so
 /usr/lib64/qt5/plugins/kdeconnect/kdeconnect_mousepad.so
 /usr/lib64/qt5/plugins/kdeconnect/kdeconnect_mpriscontrol.so
+/usr/lib64/qt5/plugins/kdeconnect/kdeconnect_mprisremote.so
 /usr/lib64/qt5/plugins/kdeconnect/kdeconnect_notifications.so
-/usr/lib64/qt5/plugins/kdeconnect/kdeconnect_pausemusic.so
+/usr/lib64/qt5/plugins/kdeconnect/kdeconnect_photo.so
 /usr/lib64/qt5/plugins/kdeconnect/kdeconnect_ping.so
+/usr/lib64/qt5/plugins/kdeconnect/kdeconnect_presenter.so
+/usr/lib64/qt5/plugins/kdeconnect/kdeconnect_remotecommands.so
+/usr/lib64/qt5/plugins/kdeconnect/kdeconnect_remotecontrol.so
 /usr/lib64/qt5/plugins/kdeconnect/kdeconnect_remotekeyboard.so
+/usr/lib64/qt5/plugins/kdeconnect/kdeconnect_remotesystemvolume.so
 /usr/lib64/qt5/plugins/kdeconnect/kdeconnect_runcommand.so
 /usr/lib64/qt5/plugins/kdeconnect/kdeconnect_screensaver_inhibit.so
 /usr/lib64/qt5/plugins/kdeconnect/kdeconnect_sendnotifications.so
 /usr/lib64/qt5/plugins/kdeconnect/kdeconnect_sftp.so
 /usr/lib64/qt5/plugins/kdeconnect/kdeconnect_share.so
+/usr/lib64/qt5/plugins/kdeconnect/kdeconnect_sms.so
 /usr/lib64/qt5/plugins/kdeconnect/kdeconnect_telephony.so
-/usr/lib64/qt5/plugins/kdeconnect_pausemusic_config.so
 /usr/lib64/qt5/plugins/kdeconnect_runcommand_config.so
 /usr/lib64/qt5/plugins/kdeconnect_sendnotifications_config.so
 /usr/lib64/qt5/plugins/kdeconnect_share_config.so
-/usr/lib64/qt5/plugins/kdeconnectfileitemaction.so
+/usr/lib64/qt5/plugins/kf5/kfileitemaction/kdeconnectfileitemaction.so
 /usr/lib64/qt5/plugins/kf5/kio/kdeconnect.so
-/usr/lib64/qt5/qml/org/kde/kdeconnect/DBusProperty.qml
-/usr/lib64/qt5/qml/org/kde/kdeconnect/PluginChecker.qml
 /usr/lib64/qt5/qml/org/kde/kdeconnect/libkdeconnectdeclarativeplugin.so
 /usr/lib64/qt5/qml/org/kde/kdeconnect/qmldir
 
 %files license
 %defattr(0644,root,root,0755)
-/usr/share/package-licenses/kdeconnect-kde/COPYING
+/usr/share/package-licenses/kdeconnect-kde/4cc77b90af91e615a64ae04893fdffa7939db84c
 
 %files locales -f kdeconnect-cli.lang -f kdeconnect-core.lang -f kdeconnect-kcm.lang -f kdeconnect-kded.lang -f kdeconnect-kio.lang -f kdeconnect-plugins.lang -f plasma_applet_org.kde.kdeconnect.lang -f kdeconnect-fileitemaction.lang -f kdeconnect-nautilus-extension.lang -f kdeconnect-urlhandler.lang
 %defattr(-,root,root,-)
