@@ -1,5 +1,5 @@
 PKG_NAME := kdeconnect-kde
-URL = https://download.kde.org/stable/kdeconnect/1.4.1/kdeconnect-kde-1.4.1.tar.xz
+URL = https://download.kde.org/stable/release-service/20.08.3/src/kdeconnect-kde-20.08.3.tar.xz
 ARCHIVES = 
 
 include ../common/Makefile.common
