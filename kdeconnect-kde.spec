@@ -5,14 +5,14 @@
 # Source0 file verified with key 0xDBD2CE893E2D1C87 (cfeck@kde.org)
 #
 Name     : kdeconnect-kde
-Version  : 20.08.3
-Release  : 6
-URL      : https://download.kde.org/stable/release-service/20.08.3/src/kdeconnect-kde-20.08.3.tar.xz
-Source0  : https://download.kde.org/stable/release-service/20.08.3/src/kdeconnect-kde-20.08.3.tar.xz
-Source1  : https://download.kde.org/stable/release-service/20.08.3/src/kdeconnect-kde-20.08.3.tar.xz.sig
+Version  : 20.12.0
+Release  : 7
+URL      : https://download.kde.org/stable/release-service/20.12.0/src/kdeconnect-kde-20.12.0.tar.xz
+Source0  : https://download.kde.org/stable/release-service/20.12.0/src/kdeconnect-kde-20.12.0.tar.xz
+Source1  : https://download.kde.org/stable/release-service/20.12.0/src/kdeconnect-kde-20.12.0.tar.xz.sig
 Summary  : Adds communication between KDE and your smartphone
 Group    : Development/Tools
-License  : GPL-2.0
+License  : Apache-2.0 BSD-3-Clause GPL-2.0 GPL-3.0 LGPL-2.0 LGPL-2.1 LGPL-3.0
 Requires: kdeconnect-kde-bin = %{version}-%{release}
 Requires: kdeconnect-kde-data = %{version}-%{release}
 Requires: kdeconnect-kde-lib = %{version}-%{release}
@@ -89,15 +89,15 @@ locales components for the kdeconnect-kde package.
 
 
 %prep
-%setup -q -n kdeconnect-kde-20.08.3
-cd %{_builddir}/kdeconnect-kde-20.08.3
+%setup -q -n kdeconnect-kde-20.12.0
+cd %{_builddir}/kdeconnect-kde-20.12.0
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1605904997
+export SOURCE_DATE_EPOCH=1607713613
 mkdir -p clr-build
 pushd clr-build
 export GCC_IGNORE_WERROR=1
@@ -110,10 +110,23 @@ make  %{?_smp_mflags}
 popd
 
 %install
-export SOURCE_DATE_EPOCH=1605904997
+export SOURCE_DATE_EPOCH=1607713613
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/kdeconnect-kde
-cp %{_builddir}/kdeconnect-kde-20.08.3/COPYING %{buildroot}/usr/share/package-licenses/kdeconnect-kde/4cc77b90af91e615a64ae04893fdffa7939db84c
+cp %{_builddir}/kdeconnect-kde-20.12.0/COPYING %{buildroot}/usr/share/package-licenses/kdeconnect-kde/4cc77b90af91e615a64ae04893fdffa7939db84c
+cp %{_builddir}/kdeconnect-kde-20.12.0/LICENSES/Apache-2.0.txt %{buildroot}/usr/share/package-licenses/kdeconnect-kde/81bf6d7df5e1fce2d1a8b3b97bb90cc33ad11593
+cp %{_builddir}/kdeconnect-kde-20.12.0/LICENSES/BSD-3-Clause.txt %{buildroot}/usr/share/package-licenses/kdeconnect-kde/9950d3fdce1cff1f71212fb5abd31453c6ee2f8c
+cp %{_builddir}/kdeconnect-kde-20.12.0/LICENSES/GPL-2.0-only.txt %{buildroot}/usr/share/package-licenses/kdeconnect-kde/2a638514c87c4923c0570c55822620fad56f2a33
+cp %{_builddir}/kdeconnect-kde-20.12.0/LICENSES/GPL-2.0-or-later.txt %{buildroot}/usr/share/package-licenses/kdeconnect-kde/e712eadfab0d2357c0f50f599ef35ee0d87534cb
+cp %{_builddir}/kdeconnect-kde-20.12.0/LICENSES/GPL-3.0-only.txt %{buildroot}/usr/share/package-licenses/kdeconnect-kde/6091db0aead0d90182b93d3c0d09ba93d188f907
+cp %{_builddir}/kdeconnect-kde-20.12.0/LICENSES/LGPL-2.0-or-later.txt %{buildroot}/usr/share/package-licenses/kdeconnect-kde/20079e8f79713dce80ab09774505773c926afa2a
+cp %{_builddir}/kdeconnect-kde-20.12.0/LICENSES/LGPL-2.1-only.txt %{buildroot}/usr/share/package-licenses/kdeconnect-kde/3c3d7573e137d48253731c975ecf90d74cfa9efe
+cp %{_builddir}/kdeconnect-kde-20.12.0/LICENSES/LGPL-2.1-or-later.txt %{buildroot}/usr/share/package-licenses/kdeconnect-kde/6f1f675aa5f6a2bbaa573b8343044b166be28399
+cp %{_builddir}/kdeconnect-kde-20.12.0/LICENSES/LGPL-3.0-only.txt %{buildroot}/usr/share/package-licenses/kdeconnect-kde/757b86330df80f81143d5916b3e92b4bcb1b1890
+cp %{_builddir}/kdeconnect-kde-20.12.0/LICENSES/LicenseRef-KDE-Accepted-GPL.txt %{buildroot}/usr/share/package-licenses/kdeconnect-kde/7d9831e05094ce723947d729c2a46a09d6e90275
+cp %{_builddir}/kdeconnect-kde-20.12.0/LICENSES/LicenseRef-KDE-Accepted-GPL.txt %{buildroot}/usr/share/package-licenses/kdeconnect-kde/7d9831e05094ce723947d729c2a46a09d6e90275
+cp %{_builddir}/kdeconnect-kde-20.12.0/LICENSES/LicenseRef-KDE-Accepted-LGPL.txt %{buildroot}/usr/share/package-licenses/kdeconnect-kde/e458941548e0864907e654fa2e192844ae90fc32
+cp %{_builddir}/kdeconnect-kde-20.12.0/LICENSES/LicenseRef-KDE-Accepted-LGPL.txt %{buildroot}/usr/share/package-licenses/kdeconnect-kde/e458941548e0864907e654fa2e192844ae90fc32
 pushd clr-build
 %make_install
 popd
@@ -124,14 +137,14 @@ popd
 %find_lang kdeconnect-kio
 %find_lang kdeconnect-plugins
 %find_lang plasma_applet_org.kde.kdeconnect
+%find_lang kdeconnect-app
 %find_lang kdeconnect-fileitemaction
+%find_lang kdeconnect-interfaces
 %find_lang kdeconnect-nautilus-extension
 %find_lang kdeconnect-settings
 %find_lang kdeconnect-sms
 %find_lang kdeconnect-urlhandler
-%find_lang kdeconnect-app
 %find_lang kdeconnect-indicator
-%find_lang kdeconnect-interfaces
 
 %files
 %defattr(-,root,root,-)
@@ -198,6 +211,9 @@ popd
 /usr/share/icons/hicolor/scalable/apps/kdeconnect.svg
 /usr/share/icons/hicolor/scalable/apps/kdeconnectindicator.svg
 /usr/share/icons/hicolor/scalable/apps/kdeconnectindicatordark.svg
+/usr/share/kdeconnect/kdeconnect_runcommand_config.qml
+/usr/share/kdeconnect/kdeconnect_sendnotifications_config.qml
+/usr/share/kdeconnect/kdeconnect_share_config.qml
 /usr/share/knotifications5/kdeconnect.notifyrc
 /usr/share/kservices5/kcm_kdeconnect.desktop
 /usr/share/kservices5/kdeconnect_runcommand_config.desktop
@@ -253,14 +269,12 @@ popd
 
 %files lib
 %defattr(-,root,root,-)
-/usr/lib64/libkdeconnectcore.so.1
-/usr/lib64/libkdeconnectcore.so.1.4.0
-/usr/lib64/libkdeconnectinterfaces.so.1
-/usr/lib64/libkdeconnectinterfaces.so.1.4.0
-/usr/lib64/libkdeconnectpluginkcm.so.1
-/usr/lib64/libkdeconnectpluginkcm.so.1.4.0
-/usr/lib64/libkdeconnectsmshelper.so.1
-/usr/lib64/libkdeconnectsmshelper.so.1.4.0
+/usr/lib64/libkdeconnectcore.so.20
+/usr/lib64/libkdeconnectcore.so.20.12.0
+/usr/lib64/libkdeconnectinterfaces.so.20
+/usr/lib64/libkdeconnectinterfaces.so.20.12.0
+/usr/lib64/libkdeconnectpluginkcm.so.20
+/usr/lib64/libkdeconnectpluginkcm.so.20.12.0
 /usr/lib64/qt5/plugins/kcm_kdeconnect.so
 /usr/lib64/qt5/plugins/kdeconnect/kdeconnect_battery.so
 /usr/lib64/qt5/plugins/kdeconnect/kdeconnect_bigscreen.so
@@ -296,8 +310,19 @@ popd
 
 %files license
 %defattr(0644,root,root,0755)
+/usr/share/package-licenses/kdeconnect-kde/20079e8f79713dce80ab09774505773c926afa2a
+/usr/share/package-licenses/kdeconnect-kde/2a638514c87c4923c0570c55822620fad56f2a33
+/usr/share/package-licenses/kdeconnect-kde/3c3d7573e137d48253731c975ecf90d74cfa9efe
 /usr/share/package-licenses/kdeconnect-kde/4cc77b90af91e615a64ae04893fdffa7939db84c
+/usr/share/package-licenses/kdeconnect-kde/6091db0aead0d90182b93d3c0d09ba93d188f907
+/usr/share/package-licenses/kdeconnect-kde/6f1f675aa5f6a2bbaa573b8343044b166be28399
+/usr/share/package-licenses/kdeconnect-kde/757b86330df80f81143d5916b3e92b4bcb1b1890
+/usr/share/package-licenses/kdeconnect-kde/7d9831e05094ce723947d729c2a46a09d6e90275
+/usr/share/package-licenses/kdeconnect-kde/81bf6d7df5e1fce2d1a8b3b97bb90cc33ad11593
+/usr/share/package-licenses/kdeconnect-kde/9950d3fdce1cff1f71212fb5abd31453c6ee2f8c
+/usr/share/package-licenses/kdeconnect-kde/e458941548e0864907e654fa2e192844ae90fc32
+/usr/share/package-licenses/kdeconnect-kde/e712eadfab0d2357c0f50f599ef35ee0d87534cb
 
-%files locales -f kdeconnect-cli.lang -f kdeconnect-core.lang -f kdeconnect-kcm.lang -f kdeconnect-kded.lang -f kdeconnect-kio.lang -f kdeconnect-plugins.lang -f plasma_applet_org.kde.kdeconnect.lang -f kdeconnect-fileitemaction.lang -f kdeconnect-nautilus-extension.lang -f kdeconnect-settings.lang -f kdeconnect-sms.lang -f kdeconnect-urlhandler.lang -f kdeconnect-app.lang -f kdeconnect-indicator.lang -f kdeconnect-interfaces.lang
+%files locales -f kdeconnect-cli.lang -f kdeconnect-core.lang -f kdeconnect-kcm.lang -f kdeconnect-kded.lang -f kdeconnect-kio.lang -f kdeconnect-plugins.lang -f plasma_applet_org.kde.kdeconnect.lang -f kdeconnect-app.lang -f kdeconnect-fileitemaction.lang -f kdeconnect-interfaces.lang -f kdeconnect-nautilus-extension.lang -f kdeconnect-settings.lang -f kdeconnect-sms.lang -f kdeconnect-urlhandler.lang -f kdeconnect-indicator.lang
 %defattr(-,root,root,-)
 
