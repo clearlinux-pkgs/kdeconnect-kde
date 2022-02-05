@@ -5,11 +5,11 @@
 # Source0 file verified with key 0xBB463350D6EF31EF (heiko@shruuf.de)
 #
 Name     : kdeconnect-kde
-Version  : 21.12.1
-Release  : 19
-URL      : https://download.kde.org/stable/release-service/21.12.1/src/kdeconnect-kde-21.12.1.tar.xz
-Source0  : https://download.kde.org/stable/release-service/21.12.1/src/kdeconnect-kde-21.12.1.tar.xz
-Source1  : https://download.kde.org/stable/release-service/21.12.1/src/kdeconnect-kde-21.12.1.tar.xz.sig
+Version  : 21.12.2
+Release  : 20
+URL      : https://download.kde.org/stable/release-service/21.12.2/src/kdeconnect-kde-21.12.2.tar.xz
+Source0  : https://download.kde.org/stable/release-service/21.12.2/src/kdeconnect-kde-21.12.2.tar.xz
+Source1  : https://download.kde.org/stable/release-service/21.12.2/src/kdeconnect-kde-21.12.2.tar.xz.sig
 Summary  : Adds communication between KDE and your smartphone
 Group    : Development/Tools
 License  : Apache-2.0 BSD-3-Clause GPL-2.0 GPL-3.0 LGPL-2.0 LGPL-2.1 LGPL-3.0 MIT
@@ -91,15 +91,15 @@ locales components for the kdeconnect-kde package.
 
 
 %prep
-%setup -q -n kdeconnect-kde-21.12.1
-cd %{_builddir}/kdeconnect-kde-21.12.1
+%setup -q -n kdeconnect-kde-21.12.2
+cd %{_builddir}/kdeconnect-kde-21.12.2
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1643435612
+export SOURCE_DATE_EPOCH=1644021327
 mkdir -p clr-build
 pushd clr-build
 export GCC_IGNORE_WERROR=1
@@ -112,23 +112,23 @@ make  %{?_smp_mflags}
 popd
 
 %install
-export SOURCE_DATE_EPOCH=1643435612
+export SOURCE_DATE_EPOCH=1644021327
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/kdeconnect-kde
-cp %{_builddir}/kdeconnect-kde-21.12.1/LICENSES/Apache-2.0.txt %{buildroot}/usr/share/package-licenses/kdeconnect-kde/81bf6d7df5e1fce2d1a8b3b97bb90cc33ad11593
-cp %{_builddir}/kdeconnect-kde-21.12.1/LICENSES/BSD-3-Clause.txt %{buildroot}/usr/share/package-licenses/kdeconnect-kde/9950d3fdce1cff1f71212fb5abd31453c6ee2f8c
-cp %{_builddir}/kdeconnect-kde-21.12.1/LICENSES/GPL-2.0-only.txt %{buildroot}/usr/share/package-licenses/kdeconnect-kde/2a638514c87c4923c0570c55822620fad56f2a33
-cp %{_builddir}/kdeconnect-kde-21.12.1/LICENSES/GPL-2.0-or-later.txt %{buildroot}/usr/share/package-licenses/kdeconnect-kde/e712eadfab0d2357c0f50f599ef35ee0d87534cb
-cp %{_builddir}/kdeconnect-kde-21.12.1/LICENSES/GPL-3.0-only.txt %{buildroot}/usr/share/package-licenses/kdeconnect-kde/6091db0aead0d90182b93d3c0d09ba93d188f907
-cp %{_builddir}/kdeconnect-kde-21.12.1/LICENSES/LGPL-2.0-or-later.txt %{buildroot}/usr/share/package-licenses/kdeconnect-kde/20079e8f79713dce80ab09774505773c926afa2a
-cp %{_builddir}/kdeconnect-kde-21.12.1/LICENSES/LGPL-2.1-only.txt %{buildroot}/usr/share/package-licenses/kdeconnect-kde/3c3d7573e137d48253731c975ecf90d74cfa9efe
-cp %{_builddir}/kdeconnect-kde-21.12.1/LICENSES/LGPL-2.1-or-later.txt %{buildroot}/usr/share/package-licenses/kdeconnect-kde/6f1f675aa5f6a2bbaa573b8343044b166be28399
-cp %{_builddir}/kdeconnect-kde-21.12.1/LICENSES/LGPL-3.0-only.txt %{buildroot}/usr/share/package-licenses/kdeconnect-kde/757b86330df80f81143d5916b3e92b4bcb1b1890
-cp %{_builddir}/kdeconnect-kde-21.12.1/LICENSES/LicenseRef-KDE-Accepted-GPL.txt %{buildroot}/usr/share/package-licenses/kdeconnect-kde/7d9831e05094ce723947d729c2a46a09d6e90275
-cp %{_builddir}/kdeconnect-kde-21.12.1/LICENSES/LicenseRef-KDE-Accepted-GPL.txt %{buildroot}/usr/share/package-licenses/kdeconnect-kde/7d9831e05094ce723947d729c2a46a09d6e90275
-cp %{_builddir}/kdeconnect-kde-21.12.1/LICENSES/LicenseRef-KDE-Accepted-LGPL.txt %{buildroot}/usr/share/package-licenses/kdeconnect-kde/e458941548e0864907e654fa2e192844ae90fc32
-cp %{_builddir}/kdeconnect-kde-21.12.1/LICENSES/LicenseRef-KDE-Accepted-LGPL.txt %{buildroot}/usr/share/package-licenses/kdeconnect-kde/e458941548e0864907e654fa2e192844ae90fc32
-cp %{_builddir}/kdeconnect-kde-21.12.1/LICENSES/MIT.txt %{buildroot}/usr/share/package-licenses/kdeconnect-kde/adadb67a9875aeeac285309f1eab6e47d9ee08a7
+cp %{_builddir}/kdeconnect-kde-21.12.2/LICENSES/Apache-2.0.txt %{buildroot}/usr/share/package-licenses/kdeconnect-kde/81bf6d7df5e1fce2d1a8b3b97bb90cc33ad11593
+cp %{_builddir}/kdeconnect-kde-21.12.2/LICENSES/BSD-3-Clause.txt %{buildroot}/usr/share/package-licenses/kdeconnect-kde/9950d3fdce1cff1f71212fb5abd31453c6ee2f8c
+cp %{_builddir}/kdeconnect-kde-21.12.2/LICENSES/GPL-2.0-only.txt %{buildroot}/usr/share/package-licenses/kdeconnect-kde/2a638514c87c4923c0570c55822620fad56f2a33
+cp %{_builddir}/kdeconnect-kde-21.12.2/LICENSES/GPL-2.0-or-later.txt %{buildroot}/usr/share/package-licenses/kdeconnect-kde/e712eadfab0d2357c0f50f599ef35ee0d87534cb
+cp %{_builddir}/kdeconnect-kde-21.12.2/LICENSES/GPL-3.0-only.txt %{buildroot}/usr/share/package-licenses/kdeconnect-kde/6091db0aead0d90182b93d3c0d09ba93d188f907
+cp %{_builddir}/kdeconnect-kde-21.12.2/LICENSES/LGPL-2.0-or-later.txt %{buildroot}/usr/share/package-licenses/kdeconnect-kde/20079e8f79713dce80ab09774505773c926afa2a
+cp %{_builddir}/kdeconnect-kde-21.12.2/LICENSES/LGPL-2.1-only.txt %{buildroot}/usr/share/package-licenses/kdeconnect-kde/3c3d7573e137d48253731c975ecf90d74cfa9efe
+cp %{_builddir}/kdeconnect-kde-21.12.2/LICENSES/LGPL-2.1-or-later.txt %{buildroot}/usr/share/package-licenses/kdeconnect-kde/6f1f675aa5f6a2bbaa573b8343044b166be28399
+cp %{_builddir}/kdeconnect-kde-21.12.2/LICENSES/LGPL-3.0-only.txt %{buildroot}/usr/share/package-licenses/kdeconnect-kde/757b86330df80f81143d5916b3e92b4bcb1b1890
+cp %{_builddir}/kdeconnect-kde-21.12.2/LICENSES/LicenseRef-KDE-Accepted-GPL.txt %{buildroot}/usr/share/package-licenses/kdeconnect-kde/7d9831e05094ce723947d729c2a46a09d6e90275
+cp %{_builddir}/kdeconnect-kde-21.12.2/LICENSES/LicenseRef-KDE-Accepted-GPL.txt %{buildroot}/usr/share/package-licenses/kdeconnect-kde/7d9831e05094ce723947d729c2a46a09d6e90275
+cp %{_builddir}/kdeconnect-kde-21.12.2/LICENSES/LicenseRef-KDE-Accepted-LGPL.txt %{buildroot}/usr/share/package-licenses/kdeconnect-kde/e458941548e0864907e654fa2e192844ae90fc32
+cp %{_builddir}/kdeconnect-kde-21.12.2/LICENSES/LicenseRef-KDE-Accepted-LGPL.txt %{buildroot}/usr/share/package-licenses/kdeconnect-kde/e458941548e0864907e654fa2e192844ae90fc32
+cp %{_builddir}/kdeconnect-kde-21.12.2/LICENSES/MIT.txt %{buildroot}/usr/share/package-licenses/kdeconnect-kde/adadb67a9875aeeac285309f1eab6e47d9ee08a7
 pushd clr-build
 %make_install
 popd
@@ -274,11 +274,11 @@ popd
 %files lib
 %defattr(-,root,root,-)
 /usr/lib64/libkdeconnectcore.so.21
-/usr/lib64/libkdeconnectcore.so.21.12.1
+/usr/lib64/libkdeconnectcore.so.21.12.2
 /usr/lib64/libkdeconnectinterfaces.so.21
-/usr/lib64/libkdeconnectinterfaces.so.21.12.1
+/usr/lib64/libkdeconnectinterfaces.so.21.12.2
 /usr/lib64/libkdeconnectpluginkcm.so.21
-/usr/lib64/libkdeconnectpluginkcm.so.21.12.1
+/usr/lib64/libkdeconnectpluginkcm.so.21.12.2
 /usr/lib64/qt5/plugins/kcm_kdeconnect.so
 /usr/lib64/qt5/plugins/kdeconnect/kdeconnect_battery.so
 /usr/lib64/qt5/plugins/kdeconnect/kdeconnect_bigscreen.so
