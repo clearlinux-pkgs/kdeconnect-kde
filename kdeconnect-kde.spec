@@ -5,11 +5,11 @@
 # Source0 file verified with key 0xBB463350D6EF31EF (heiko@shruuf.de)
 #
 Name     : kdeconnect-kde
-Version  : 22.08.2
-Release  : 28
-URL      : https://download.kde.org/stable/release-service/22.08.2/src/kdeconnect-kde-22.08.2.tar.xz
-Source0  : https://download.kde.org/stable/release-service/22.08.2/src/kdeconnect-kde-22.08.2.tar.xz
-Source1  : https://download.kde.org/stable/release-service/22.08.2/src/kdeconnect-kde-22.08.2.tar.xz.sig
+Version  : 22.08.3
+Release  : 29
+URL      : https://download.kde.org/stable/release-service/22.08.3/src/kdeconnect-kde-22.08.3.tar.xz
+Source0  : https://download.kde.org/stable/release-service/22.08.3/src/kdeconnect-kde-22.08.3.tar.xz
+Source1  : https://download.kde.org/stable/release-service/22.08.3/src/kdeconnect-kde-22.08.3.tar.xz.sig
 Summary  : Adds communication between KDE and your smartphone
 Group    : Development/Tools
 License  : Apache-2.0 BSD-3-Clause GPL-2.0 GPL-3.0 LGPL-2.0 LGPL-2.1 LGPL-3.0 MIT
@@ -92,15 +92,15 @@ locales components for the kdeconnect-kde package.
 
 
 %prep
-%setup -q -n kdeconnect-kde-22.08.2
-cd %{_builddir}/kdeconnect-kde-22.08.2
+%setup -q -n kdeconnect-kde-22.08.3
+cd %{_builddir}/kdeconnect-kde-22.08.3
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1665763877
+export SOURCE_DATE_EPOCH=1667882200
 mkdir -p clr-build
 pushd clr-build
 export GCC_IGNORE_WERROR=1
@@ -113,7 +113,7 @@ make  %{?_smp_mflags}
 popd
 
 %install
-export SOURCE_DATE_EPOCH=1665763877
+export SOURCE_DATE_EPOCH=1667882200
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/kdeconnect-kde
 cp %{_builddir}/kdeconnect-kde-%{version}/LICENSES/Apache-2.0.txt %{buildroot}/usr/share/package-licenses/kdeconnect-kde/81bf6d7df5e1fce2d1a8b3b97bb90cc33ad11593 || :
@@ -273,11 +273,11 @@ popd
 %files lib
 %defattr(-,root,root,-)
 /usr/lib64/libkdeconnectcore.so.22
-/usr/lib64/libkdeconnectcore.so.22.08.2
+/usr/lib64/libkdeconnectcore.so.22.08.3
 /usr/lib64/libkdeconnectinterfaces.so.22
-/usr/lib64/libkdeconnectinterfaces.so.22.08.2
+/usr/lib64/libkdeconnectinterfaces.so.22.08.3
 /usr/lib64/libkdeconnectpluginkcm.so.22
-/usr/lib64/libkdeconnectpluginkcm.so.22.08.2
+/usr/lib64/libkdeconnectpluginkcm.so.22.08.3
 /usr/lib64/qt5/plugins/kcm_kdeconnect.so
 /usr/lib64/qt5/plugins/kdeconnect/kcms/kdeconnect_runcommand_config.so
 /usr/lib64/qt5/plugins/kdeconnect/kcms/kdeconnect_sendnotifications_config.so
