@@ -6,7 +6,7 @@
 #
 Name     : kdeconnect-kde
 Version  : 22.12.2
-Release  : 32
+Release  : 33
 URL      : https://download.kde.org/stable/release-service/22.12.2/src/kdeconnect-kde-22.12.2.tar.xz
 Source0  : https://download.kde.org/stable/release-service/22.12.2/src/kdeconnect-kde-22.12.2.tar.xz
 Source1  : https://download.kde.org/stable/release-service/22.12.2/src/kdeconnect-kde-22.12.2.tar.xz.sig
@@ -103,7 +103,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1675657386
+export SOURCE_DATE_EPOCH=1676838344
 mkdir -p clr-build
 pushd clr-build
 export GCC_IGNORE_WERROR=1
@@ -116,7 +116,7 @@ make  %{?_smp_mflags}
 popd
 
 %install
-export SOURCE_DATE_EPOCH=1675657386
+export SOURCE_DATE_EPOCH=1676838344
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/kdeconnect-kde
 cp %{_builddir}/kdeconnect-kde-%{version}/LICENSES/Apache-2.0.txt %{buildroot}/usr/share/package-licenses/kdeconnect-kde/81bf6d7df5e1fce2d1a8b3b97bb90cc33ad11593 || :
