@@ -6,11 +6,11 @@
 # Source0 file verified with key 0xBB463350D6EF31EF (heiko@shruuf.de)
 #
 Name     : kdeconnect-kde
-Version  : 23.04.0
-Release  : 35
-URL      : https://download.kde.org/stable/release-service/23.04.0/src/kdeconnect-kde-23.04.0.tar.xz
-Source0  : https://download.kde.org/stable/release-service/23.04.0/src/kdeconnect-kde-23.04.0.tar.xz
-Source1  : https://download.kde.org/stable/release-service/23.04.0/src/kdeconnect-kde-23.04.0.tar.xz.sig
+Version  : 23.04.1
+Release  : 36
+URL      : https://download.kde.org/stable/release-service/23.04.1/src/kdeconnect-kde-23.04.1.tar.xz
+Source0  : https://download.kde.org/stable/release-service/23.04.1/src/kdeconnect-kde-23.04.1.tar.xz
+Source1  : https://download.kde.org/stable/release-service/23.04.1/src/kdeconnect-kde-23.04.1.tar.xz.sig
 Summary  : Adds communication between KDE and your smartphone
 Group    : Development/Tools
 License  : Apache-2.0 BSD-3-Clause CC0-1.0 GPL-2.0 GPL-3.0 LGPL-2.0 LGPL-2.1 LGPL-3.0 MIT
@@ -34,11 +34,11 @@ BuildRequires : libfakekey-dev
 BuildRequires : modemmanager-qt-dev
 BuildRequires : pkg-config
 BuildRequires : pkgconfig(libfakekey)
-BuildRequires : pkgconfig(wayland-protocols)
 BuildRequires : pkgconfig(xkbcommon)
 BuildRequires : qca-qt5-dev
 BuildRequires : qqc2-desktop-style-dev
 BuildRequires : qtbase-dev mesa-dev
+BuildRequires : wayland-protocols-dev plasma-wayland-protocols-dev
 # Suppress stripping binaries
 %define __strip /bin/true
 %define debug_package %{nil}
@@ -99,28 +99,42 @@ locales components for the kdeconnect-kde package.
 
 
 %prep
-%setup -q -n kdeconnect-kde-23.04.0
-cd %{_builddir}/kdeconnect-kde-23.04.0
+%setup -q -n kdeconnect-kde-23.04.1
+cd %{_builddir}/kdeconnect-kde-23.04.1
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1682115670
+export SOURCE_DATE_EPOCH=1684868414
 mkdir -p clr-build
 pushd clr-build
 export GCC_IGNORE_WERROR=1
-export CFLAGS="$CFLAGS -fdebug-types-section -femit-struct-debug-baseonly -fno-lto -g1 -gno-column-info -gno-variable-location-views -gz "
-export FCFLAGS="$FFLAGS -fdebug-types-section -femit-struct-debug-baseonly -fno-lto -g1 -gno-column-info -gno-variable-location-views -gz "
-export FFLAGS="$FFLAGS -fdebug-types-section -femit-struct-debug-baseonly -fno-lto -g1 -gno-column-info -gno-variable-location-views -gz "
-export CXXFLAGS="$CXXFLAGS -fdebug-types-section -femit-struct-debug-baseonly -fno-lto -g1 -gno-column-info -gno-variable-location-views -gz "
+export CFLAGS="$CFLAGS -fdebug-types-section -femit-struct-debug-baseonly -fno-lto -g1 -gno-column-info -gno-variable-location-views -gz=zstd "
+export FCFLAGS="$FFLAGS -fdebug-types-section -femit-struct-debug-baseonly -fno-lto -g1 -gno-column-info -gno-variable-location-views -gz=zstd "
+export FFLAGS="$FFLAGS -fdebug-types-section -femit-struct-debug-baseonly -fno-lto -g1 -gno-column-info -gno-variable-location-views -gz=zstd "
+export CXXFLAGS="$CXXFLAGS -fdebug-types-section -femit-struct-debug-baseonly -fno-lto -g1 -gno-column-info -gno-variable-location-views -gz=zstd "
+%cmake ..
+make  %{?_smp_mflags}
+popd
+mkdir -p clr-build-avx2
+pushd clr-build-avx2
+export GCC_IGNORE_WERROR=1
+export CFLAGS="$CFLAGS -O3 -Wl,-z,x86-64-v3 -fdebug-types-section -femit-struct-debug-baseonly -fno-lto -g1 -gno-column-info -gno-variable-location-views -gz=zstd -march=x86-64-v3 "
+export FCFLAGS="$FFLAGS -O3 -Wl,-z,x86-64-v3 -fdebug-types-section -femit-struct-debug-baseonly -fno-lto -g1 -gno-column-info -gno-variable-location-views -gz=zstd -march=x86-64-v3 "
+export FFLAGS="$FFLAGS -O3 -Wl,-z,x86-64-v3 -fdebug-types-section -femit-struct-debug-baseonly -fno-lto -g1 -gno-column-info -gno-variable-location-views -gz=zstd -march=x86-64-v3 "
+export CXXFLAGS="$CXXFLAGS -O3 -Wl,-z,x86-64-v3 -fdebug-types-section -femit-struct-debug-baseonly -fno-lto -g1 -gno-column-info -gno-variable-location-views -gz=zstd -march=x86-64-v3 "
+export CFLAGS="$CFLAGS -march=x86-64-v3 -m64 -Wl,-z,x86-64-v3"
+export CXXFLAGS="$CXXFLAGS -march=x86-64-v3 -m64 -Wl,-z,x86-64-v3"
+export FFLAGS="$FFLAGS -march=x86-64-v3 -m64 -Wl,-z,x86-64-v3"
+export FCFLAGS="$FCFLAGS -march=x86-64-v3 -m64 -Wl,-z,x86-64-v3"
 %cmake ..
 make  %{?_smp_mflags}
 popd
 
 %install
-export SOURCE_DATE_EPOCH=1682115670
+export SOURCE_DATE_EPOCH=1684868414
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/kdeconnect-kde
 cp %{_builddir}/kdeconnect-kde-%{version}/LICENSES/Apache-2.0.txt %{buildroot}/usr/share/package-licenses/kdeconnect-kde/81bf6d7df5e1fce2d1a8b3b97bb90cc33ad11593 || :
@@ -138,6 +152,9 @@ cp %{_builddir}/kdeconnect-kde-%{version}/LICENSES/LicenseRef-KDE-Accepted-GPL.t
 cp %{_builddir}/kdeconnect-kde-%{version}/LICENSES/LicenseRef-KDE-Accepted-LGPL.txt %{buildroot}/usr/share/package-licenses/kdeconnect-kde/e458941548e0864907e654fa2e192844ae90fc32 || :
 cp %{_builddir}/kdeconnect-kde-%{version}/LICENSES/LicenseRef-KDE-Accepted-LGPL.txt %{buildroot}/usr/share/package-licenses/kdeconnect-kde/e458941548e0864907e654fa2e192844ae90fc32 || :
 cp %{_builddir}/kdeconnect-kde-%{version}/LICENSES/MIT.txt %{buildroot}/usr/share/package-licenses/kdeconnect-kde/adadb67a9875aeeac285309f1eab6e47d9ee08a7 || :
+pushd clr-build-avx2
+%make_install_v3  || :
+popd
 pushd clr-build
 %make_install
 popd
@@ -156,13 +173,21 @@ popd
 %find_lang kdeconnect-sms
 %find_lang kdeconnect-urlhandler
 %find_lang plasma_applet_org.kde.kdeconnect
+/usr/bin/elf-move.py avx2 %{buildroot}-v3 %{buildroot} %{buildroot}/usr/share/clear/filemap/filemap-%{name}
 
 %files
 %defattr(-,root,root,-)
+/V3/usr/lib64/libexec/kdeconnectd
 /usr/lib64/libexec/kdeconnectd
 
 %files bin
 %defattr(-,root,root,-)
+/V3/usr/bin/kdeconnect-app
+/V3/usr/bin/kdeconnect-cli
+/V3/usr/bin/kdeconnect-handler
+/V3/usr/bin/kdeconnect-indicator
+/V3/usr/bin/kdeconnect-settings
+/V3/usr/bin/kdeconnect-sms
 /usr/bin/kdeconnect-app
 /usr/bin/kdeconnect-cli
 /usr/bin/kdeconnect-handler
@@ -284,12 +309,53 @@ popd
 
 %files lib
 %defattr(-,root,root,-)
+/V3/usr/lib64/libkdeconnectcore.so.23
+/V3/usr/lib64/libkdeconnectcore.so.23.04.1
+/V3/usr/lib64/libkdeconnectinterfaces.so.23
+/V3/usr/lib64/libkdeconnectinterfaces.so.23.04.1
+/V3/usr/lib64/libkdeconnectpluginkcm.so.23
+/V3/usr/lib64/libkdeconnectpluginkcm.so.23.04.1
+/V3/usr/lib64/qt5/plugins/kdeconnect/kcms/kdeconnect_clipboard_config.so
+/V3/usr/lib64/qt5/plugins/kdeconnect/kcms/kdeconnect_runcommand_config.so
+/V3/usr/lib64/qt5/plugins/kdeconnect/kcms/kdeconnect_sendnotifications_config.so
+/V3/usr/lib64/qt5/plugins/kdeconnect/kcms/kdeconnect_share_config.so
+/V3/usr/lib64/qt5/plugins/kdeconnect/kdeconnect_battery.so
+/V3/usr/lib64/qt5/plugins/kdeconnect/kdeconnect_bigscreen.so
+/V3/usr/lib64/qt5/plugins/kdeconnect/kdeconnect_clipboard.so
+/V3/usr/lib64/qt5/plugins/kdeconnect/kdeconnect_connectivity_report.so
+/V3/usr/lib64/qt5/plugins/kdeconnect/kdeconnect_contacts.so
+/V3/usr/lib64/qt5/plugins/kdeconnect/kdeconnect_findmyphone.so
+/V3/usr/lib64/qt5/plugins/kdeconnect/kdeconnect_lockdevice.so
+/V3/usr/lib64/qt5/plugins/kdeconnect/kdeconnect_mmtelephony.so
+/V3/usr/lib64/qt5/plugins/kdeconnect/kdeconnect_mousepad.so
+/V3/usr/lib64/qt5/plugins/kdeconnect/kdeconnect_mpriscontrol.so
+/V3/usr/lib64/qt5/plugins/kdeconnect/kdeconnect_mprisremote.so
+/V3/usr/lib64/qt5/plugins/kdeconnect/kdeconnect_notifications.so
+/V3/usr/lib64/qt5/plugins/kdeconnect/kdeconnect_photo.so
+/V3/usr/lib64/qt5/plugins/kdeconnect/kdeconnect_ping.so
+/V3/usr/lib64/qt5/plugins/kdeconnect/kdeconnect_presenter.so
+/V3/usr/lib64/qt5/plugins/kdeconnect/kdeconnect_remotecommands.so
+/V3/usr/lib64/qt5/plugins/kdeconnect/kdeconnect_remotecontrol.so
+/V3/usr/lib64/qt5/plugins/kdeconnect/kdeconnect_remotekeyboard.so
+/V3/usr/lib64/qt5/plugins/kdeconnect/kdeconnect_remotesystemvolume.so
+/V3/usr/lib64/qt5/plugins/kdeconnect/kdeconnect_runcommand.so
+/V3/usr/lib64/qt5/plugins/kdeconnect/kdeconnect_screensaver_inhibit.so
+/V3/usr/lib64/qt5/plugins/kdeconnect/kdeconnect_sendnotifications.so
+/V3/usr/lib64/qt5/plugins/kdeconnect/kdeconnect_sftp.so
+/V3/usr/lib64/qt5/plugins/kdeconnect/kdeconnect_share.so
+/V3/usr/lib64/qt5/plugins/kdeconnect/kdeconnect_sms.so
+/V3/usr/lib64/qt5/plugins/kdeconnect/kdeconnect_telephony.so
+/V3/usr/lib64/qt5/plugins/kdeconnect/kdeconnect_virtualmonitor.so
+/V3/usr/lib64/qt5/plugins/kf5/kfileitemaction/kdeconnectfileitemaction.so
+/V3/usr/lib64/qt5/plugins/kf5/kio/kdeconnect.so
+/V3/usr/lib64/qt5/plugins/plasma/kcms/systemsettings_qwidgets/kcm_kdeconnect.so
+/V3/usr/lib64/qt5/qml/org/kde/kdeconnect/libkdeconnectdeclarativeplugin.so
 /usr/lib64/libkdeconnectcore.so.23
-/usr/lib64/libkdeconnectcore.so.23.04.0
+/usr/lib64/libkdeconnectcore.so.23.04.1
 /usr/lib64/libkdeconnectinterfaces.so.23
-/usr/lib64/libkdeconnectinterfaces.so.23.04.0
+/usr/lib64/libkdeconnectinterfaces.so.23.04.1
 /usr/lib64/libkdeconnectpluginkcm.so.23
-/usr/lib64/libkdeconnectpluginkcm.so.23.04.0
+/usr/lib64/libkdeconnectpluginkcm.so.23.04.1
 /usr/lib64/qt5/plugins/kdeconnect/kcms/kdeconnect_clipboard_config.so
 /usr/lib64/qt5/plugins/kdeconnect/kcms/kdeconnect_runcommand_config.so
 /usr/lib64/qt5/plugins/kdeconnect/kcms/kdeconnect_sendnotifications_config.so
