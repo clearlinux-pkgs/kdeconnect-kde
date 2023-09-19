@@ -6,11 +6,11 @@
 # Source0 file verified with key 0xBB463350D6EF31EF (heiko@shruuf.de)
 #
 Name     : kdeconnect-kde
-Version  : 23.08.0
-Release  : 40
-URL      : https://download.kde.org/stable/release-service/23.08.0/src/kdeconnect-kde-23.08.0.tar.xz
-Source0  : https://download.kde.org/stable/release-service/23.08.0/src/kdeconnect-kde-23.08.0.tar.xz
-Source1  : https://download.kde.org/stable/release-service/23.08.0/src/kdeconnect-kde-23.08.0.tar.xz.sig
+Version  : 23.08.1
+Release  : 41
+URL      : https://download.kde.org/stable/release-service/23.08.1/src/kdeconnect-kde-23.08.1.tar.xz
+Source0  : https://download.kde.org/stable/release-service/23.08.1/src/kdeconnect-kde-23.08.1.tar.xz
+Source1  : https://download.kde.org/stable/release-service/23.08.1/src/kdeconnect-kde-23.08.1.tar.xz.sig
 Summary  : Adds communication between KDE and your smartphone
 Group    : Development/Tools
 License  : Apache-2.0 BSD-3-Clause CC0-1.0 GPL-2.0 GPL-3.0 LGPL-2.0 LGPL-2.1 LGPL-3.0 MIT
@@ -100,15 +100,15 @@ locales components for the kdeconnect-kde package.
 
 
 %prep
-%setup -q -n kdeconnect-kde-23.08.0
-cd %{_builddir}/kdeconnect-kde-23.08.0
+%setup -q -n kdeconnect-kde-23.08.1
+cd %{_builddir}/kdeconnect-kde-23.08.1
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1693028646
+export SOURCE_DATE_EPOCH=1695088480
 mkdir -p clr-build
 pushd clr-build
 export GCC_IGNORE_WERROR=1
@@ -135,7 +135,7 @@ make  %{?_smp_mflags}
 popd
 
 %install
-export SOURCE_DATE_EPOCH=1693028646
+export SOURCE_DATE_EPOCH=1695088480
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/kdeconnect-kde
 cp %{_builddir}/kdeconnect-kde-%{version}/LICENSES/Apache-2.0.txt %{buildroot}/usr/share/package-licenses/kdeconnect-kde/81bf6d7df5e1fce2d1a8b3b97bb90cc33ad11593 || :
@@ -311,9 +311,9 @@ popd
 
 %files lib
 %defattr(-,root,root,-)
-/V3/usr/lib64/libkdeconnectcore.so.23.08.0
-/V3/usr/lib64/libkdeconnectinterfaces.so.23.08.0
-/V3/usr/lib64/libkdeconnectpluginkcm.so.23.08.0
+/V3/usr/lib64/libkdeconnectcore.so.23.08.1
+/V3/usr/lib64/libkdeconnectinterfaces.so.23.08.1
+/V3/usr/lib64/libkdeconnectpluginkcm.so.23.08.1
 /V3/usr/lib64/qt5/plugins/kdeconnect/kcms/kdeconnect_clipboard_config.so
 /V3/usr/lib64/qt5/plugins/kdeconnect/kcms/kdeconnect_runcommand_config.so
 /V3/usr/lib64/qt5/plugins/kdeconnect/kcms/kdeconnect_sendnotifications_config.so
@@ -350,11 +350,11 @@ popd
 /V3/usr/lib64/qt5/plugins/plasma/kcms/systemsettings_qwidgets/kcm_kdeconnect.so
 /V3/usr/lib64/qt5/qml/org/kde/kdeconnect/libkdeconnectdeclarativeplugin.so
 /usr/lib64/libkdeconnectcore.so.23
-/usr/lib64/libkdeconnectcore.so.23.08.0
+/usr/lib64/libkdeconnectcore.so.23.08.1
 /usr/lib64/libkdeconnectinterfaces.so.23
-/usr/lib64/libkdeconnectinterfaces.so.23.08.0
+/usr/lib64/libkdeconnectinterfaces.so.23.08.1
 /usr/lib64/libkdeconnectpluginkcm.so.23
-/usr/lib64/libkdeconnectpluginkcm.so.23.08.0
+/usr/lib64/libkdeconnectpluginkcm.so.23.08.1
 /usr/lib64/qt5/plugins/kdeconnect/kcms/kdeconnect_clipboard_config.so
 /usr/lib64/qt5/plugins/kdeconnect/kcms/kdeconnect_runcommand_config.so
 /usr/lib64/qt5/plugins/kdeconnect/kcms/kdeconnect_sendnotifications_config.so
