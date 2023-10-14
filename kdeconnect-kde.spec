@@ -6,11 +6,11 @@
 # Source0 file verified with key 0xBB463350D6EF31EF (heiko@shruuf.de)
 #
 Name     : kdeconnect-kde
-Version  : 23.08.1
-Release  : 41
-URL      : https://download.kde.org/stable/release-service/23.08.1/src/kdeconnect-kde-23.08.1.tar.xz
-Source0  : https://download.kde.org/stable/release-service/23.08.1/src/kdeconnect-kde-23.08.1.tar.xz
-Source1  : https://download.kde.org/stable/release-service/23.08.1/src/kdeconnect-kde-23.08.1.tar.xz.sig
+Version  : 23.08.2
+Release  : 42
+URL      : https://download.kde.org/stable/release-service/23.08.2/src/kdeconnect-kde-23.08.2.tar.xz
+Source0  : https://download.kde.org/stable/release-service/23.08.2/src/kdeconnect-kde-23.08.2.tar.xz
+Source1  : https://download.kde.org/stable/release-service/23.08.2/src/kdeconnect-kde-23.08.2.tar.xz.sig
 Summary  : Adds communication between KDE and your smartphone
 Group    : Development/Tools
 License  : Apache-2.0 BSD-3-Clause CC0-1.0 GPL-2.0 GPL-3.0 LGPL-2.0 LGPL-2.1 LGPL-3.0 MIT
@@ -100,42 +100,65 @@ locales components for the kdeconnect-kde package.
 
 
 %prep
-%setup -q -n kdeconnect-kde-23.08.1
-cd %{_builddir}/kdeconnect-kde-23.08.1
+%setup -q -n kdeconnect-kde-23.08.2
+cd %{_builddir}/kdeconnect-kde-23.08.2
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1695088480
+export SOURCE_DATE_EPOCH=1697259152
 mkdir -p clr-build
 pushd clr-build
 export GCC_IGNORE_WERROR=1
-export CFLAGS="$CFLAGS -fdebug-types-section -femit-struct-debug-baseonly -fno-lto -g1 -gno-column-info -gno-variable-location-views -gz=zstd "
-export FCFLAGS="$FFLAGS -fdebug-types-section -femit-struct-debug-baseonly -fno-lto -g1 -gno-column-info -gno-variable-location-views -gz=zstd "
-export FFLAGS="$FFLAGS -fdebug-types-section -femit-struct-debug-baseonly -fno-lto -g1 -gno-column-info -gno-variable-location-views -gz=zstd "
-export CXXFLAGS="$CXXFLAGS -fdebug-types-section -femit-struct-debug-baseonly -fno-lto -g1 -gno-column-info -gno-variable-location-views -gz=zstd "
+CLEAR_INTERMEDIATE_CFLAGS="$CLEAR_INTERMEDIATE_CFLAGS -fdebug-types-section -femit-struct-debug-baseonly -fno-lto -g1 -gno-column-info -gno-variable-location-views -gz=zstd "
+CLEAR_INTERMEDIATE_FCFLAGS="$CLEAR_INTERMEDIATE_FFLAGS -fdebug-types-section -femit-struct-debug-baseonly -fno-lto -g1 -gno-column-info -gno-variable-location-views -gz=zstd "
+CLEAR_INTERMEDIATE_FFLAGS="$CLEAR_INTERMEDIATE_FFLAGS -fdebug-types-section -femit-struct-debug-baseonly -fno-lto -g1 -gno-column-info -gno-variable-location-views -gz=zstd "
+CLEAR_INTERMEDIATE_CXXFLAGS="$CLEAR_INTERMEDIATE_CXXFLAGS -fdebug-types-section -femit-struct-debug-baseonly -fno-lto -g1 -gno-column-info -gno-variable-location-views -gz=zstd "
+CFLAGS="$CLEAR_INTERMEDIATE_CFLAGS"
+CXXFLAGS="$CLEAR_INTERMEDIATE_CXXFLAGS"
+FFLAGS="$CLEAR_INTERMEDIATE_FFLAGS"
+FCFLAGS="$CLEAR_INTERMEDIATE_FCFLAGS"
+ASFLAGS="$CLEAR_INTERMEDIATE_ASFLAGS"
+LDFLAGS="$CLEAR_INTERMEDIATE_LDFLAGS"
 %cmake ..
 make  %{?_smp_mflags}
 popd
 mkdir -p clr-build-avx2
 pushd clr-build-avx2
 export GCC_IGNORE_WERROR=1
-export CFLAGS="$CFLAGS -O3 -Wl,-z,x86-64-v3 -fdebug-types-section -femit-struct-debug-baseonly -fno-lto -g1 -gno-column-info -gno-variable-location-views -gz=zstd -march=x86-64-v3 "
-export FCFLAGS="$FFLAGS -O3 -Wl,-z,x86-64-v3 -fdebug-types-section -femit-struct-debug-baseonly -fno-lto -g1 -gno-column-info -gno-variable-location-views -gz=zstd -march=x86-64-v3 "
-export FFLAGS="$FFLAGS -O3 -Wl,-z,x86-64-v3 -fdebug-types-section -femit-struct-debug-baseonly -fno-lto -g1 -gno-column-info -gno-variable-location-views -gz=zstd -march=x86-64-v3 "
-export CXXFLAGS="$CXXFLAGS -O3 -Wl,-z,x86-64-v3 -fdebug-types-section -femit-struct-debug-baseonly -fno-lto -g1 -gno-column-info -gno-variable-location-views -gz=zstd -march=x86-64-v3 "
-export CFLAGS="$CFLAGS -march=x86-64-v3 -m64 -Wl,-z,x86-64-v3"
-export CXXFLAGS="$CXXFLAGS -march=x86-64-v3 -m64 -Wl,-z,x86-64-v3"
-export FFLAGS="$FFLAGS -march=x86-64-v3 -m64 -Wl,-z,x86-64-v3"
-export FCFLAGS="$FCFLAGS -march=x86-64-v3 -m64 -Wl,-z,x86-64-v3"
+CLEAR_INTERMEDIATE_CFLAGS="$CLEAR_INTERMEDIATE_CFLAGS -fdebug-types-section -femit-struct-debug-baseonly -fno-lto -g1 -gno-column-info -gno-variable-location-views -gz=zstd "
+CLEAR_INTERMEDIATE_FCFLAGS="$CLEAR_INTERMEDIATE_FFLAGS -fdebug-types-section -femit-struct-debug-baseonly -fno-lto -g1 -gno-column-info -gno-variable-location-views -gz=zstd "
+CLEAR_INTERMEDIATE_FFLAGS="$CLEAR_INTERMEDIATE_FFLAGS -fdebug-types-section -femit-struct-debug-baseonly -fno-lto -g1 -gno-column-info -gno-variable-location-views -gz=zstd "
+CLEAR_INTERMEDIATE_CXXFLAGS="$CLEAR_INTERMEDIATE_CXXFLAGS -fdebug-types-section -femit-struct-debug-baseonly -fno-lto -g1 -gno-column-info -gno-variable-location-views -gz=zstd "
+CFLAGS="$CLEAR_INTERMEDIATE_CFLAGS"
+CXXFLAGS="$CLEAR_INTERMEDIATE_CXXFLAGS"
+FFLAGS="$CLEAR_INTERMEDIATE_FFLAGS"
+FCFLAGS="$CLEAR_INTERMEDIATE_FCFLAGS"
+ASFLAGS="$CLEAR_INTERMEDIATE_ASFLAGS"
+LDFLAGS="$CLEAR_INTERMEDIATE_LDFLAGS"
+CFLAGS="$CLEAR_INTERMEDIATE_CFLAGS -march=x86-64-v3 -m64 -Wl,-z,x86-64-v3"
+CXXFLAGS="$CLEAR_INTERMEDIATE_CXXFLAGS -march=x86-64-v3 -m64 -Wl,-z,x86-64-v3"
+FFLAGS="$CLEAR_INTERMEDIATE_FFLAGS -march=x86-64-v3 -m64 -Wl,-z,x86-64-v3"
+FCFLAGS="$CLEAR_INTERMEDIATE_FCFLAGS -march=x86-64-v3 -m64 -Wl,-z,x86-64-v3"
 %cmake ..
 make  %{?_smp_mflags}
 popd
 
 %install
-export SOURCE_DATE_EPOCH=1695088480
+export GCC_IGNORE_WERROR=1
+CLEAR_INTERMEDIATE_CFLAGS="$CLEAR_INTERMEDIATE_CFLAGS -fdebug-types-section -femit-struct-debug-baseonly -fno-lto -g1 -gno-column-info -gno-variable-location-views -gz=zstd "
+CLEAR_INTERMEDIATE_FCFLAGS="$CLEAR_INTERMEDIATE_FFLAGS -fdebug-types-section -femit-struct-debug-baseonly -fno-lto -g1 -gno-column-info -gno-variable-location-views -gz=zstd "
+CLEAR_INTERMEDIATE_FFLAGS="$CLEAR_INTERMEDIATE_FFLAGS -fdebug-types-section -femit-struct-debug-baseonly -fno-lto -g1 -gno-column-info -gno-variable-location-views -gz=zstd "
+CLEAR_INTERMEDIATE_CXXFLAGS="$CLEAR_INTERMEDIATE_CXXFLAGS -fdebug-types-section -femit-struct-debug-baseonly -fno-lto -g1 -gno-column-info -gno-variable-location-views -gz=zstd "
+CFLAGS="$CLEAR_INTERMEDIATE_CFLAGS"
+CXXFLAGS="$CLEAR_INTERMEDIATE_CXXFLAGS"
+FFLAGS="$CLEAR_INTERMEDIATE_FFLAGS"
+FCFLAGS="$CLEAR_INTERMEDIATE_FCFLAGS"
+ASFLAGS="$CLEAR_INTERMEDIATE_ASFLAGS"
+LDFLAGS="$CLEAR_INTERMEDIATE_LDFLAGS"
+export SOURCE_DATE_EPOCH=1697259152
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/kdeconnect-kde
 cp %{_builddir}/kdeconnect-kde-%{version}/LICENSES/Apache-2.0.txt %{buildroot}/usr/share/package-licenses/kdeconnect-kde/81bf6d7df5e1fce2d1a8b3b97bb90cc33ad11593 || :
@@ -206,7 +229,6 @@ popd
 /usr/share/applications/org.kde.kdeconnect.handler.desktop
 /usr/share/applications/org.kde.kdeconnect.nonplasma.desktop
 /usr/share/applications/org.kde.kdeconnect.sms.desktop
-/usr/share/applications/org.kde.kdeconnect_open.desktop
 /usr/share/contractor/kdeconnect.contract
 /usr/share/dbus-1/services/org.kde.kdeconnect.service
 /usr/share/deepin/dde-file-manager/oem-menuextensions/kdeconnect-dde.desktop
@@ -311,9 +333,9 @@ popd
 
 %files lib
 %defattr(-,root,root,-)
-/V3/usr/lib64/libkdeconnectcore.so.23.08.1
-/V3/usr/lib64/libkdeconnectinterfaces.so.23.08.1
-/V3/usr/lib64/libkdeconnectpluginkcm.so.23.08.1
+/V3/usr/lib64/libkdeconnectcore.so.23.08.2
+/V3/usr/lib64/libkdeconnectinterfaces.so.23.08.2
+/V3/usr/lib64/libkdeconnectpluginkcm.so.23.08.2
 /V3/usr/lib64/qt5/plugins/kdeconnect/kcms/kdeconnect_clipboard_config.so
 /V3/usr/lib64/qt5/plugins/kdeconnect/kcms/kdeconnect_runcommand_config.so
 /V3/usr/lib64/qt5/plugins/kdeconnect/kcms/kdeconnect_sendnotifications_config.so
@@ -350,11 +372,11 @@ popd
 /V3/usr/lib64/qt5/plugins/plasma/kcms/systemsettings_qwidgets/kcm_kdeconnect.so
 /V3/usr/lib64/qt5/qml/org/kde/kdeconnect/libkdeconnectdeclarativeplugin.so
 /usr/lib64/libkdeconnectcore.so.23
-/usr/lib64/libkdeconnectcore.so.23.08.1
+/usr/lib64/libkdeconnectcore.so.23.08.2
 /usr/lib64/libkdeconnectinterfaces.so.23
-/usr/lib64/libkdeconnectinterfaces.so.23.08.1
+/usr/lib64/libkdeconnectinterfaces.so.23.08.2
 /usr/lib64/libkdeconnectpluginkcm.so.23
-/usr/lib64/libkdeconnectpluginkcm.so.23.08.1
+/usr/lib64/libkdeconnectpluginkcm.so.23.08.2
 /usr/lib64/qt5/plugins/kdeconnect/kcms/kdeconnect_clipboard_config.so
 /usr/lib64/qt5/plugins/kdeconnect/kcms/kdeconnect_runcommand_config.so
 /usr/lib64/qt5/plugins/kdeconnect/kcms/kdeconnect_sendnotifications_config.so
