@@ -4,5 +4,8 @@ kirigami2-dev
 kpeople-dev
 kwayland-dev
 libfakekey-dev
-qca-qt5-dev
+qca-dev
 ModemManager-dev
+pulseaudio-qt-dev
+modemmanager-qt-dev
+qqc2-desktop-style-dev
