@@ -20,7 +20,6 @@ libKF6Solid.so.6
 libKF6StatusNotifierItem.so.6
 libKF6WidgetsAddons.so.6
 libKF6WindowSystem.so.6
-libQt6Bluetooth.so.6
 libQt6Core.so.6
 libQt6Core5Compat.so.6
 libQt6DBus.so.6
