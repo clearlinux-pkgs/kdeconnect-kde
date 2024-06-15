@@ -8,11 +8,11 @@
 # Source0 file verified with key 0xBB463350D6EF31EF (heiko@shruuf.de)
 #
 Name     : kdeconnect-kde
-Version  : 24.05.0
-Release  : 53
-URL      : https://download.kde.org/stable/release-service/24.05.0/src/kdeconnect-kde-24.05.0.tar.xz
-Source0  : https://download.kde.org/stable/release-service/24.05.0/src/kdeconnect-kde-24.05.0.tar.xz
-Source1  : https://download.kde.org/stable/release-service/24.05.0/src/kdeconnect-kde-24.05.0.tar.xz.sig
+Version  : 24.05.1
+Release  : 54
+URL      : https://download.kde.org/stable/release-service/24.05.1/src/kdeconnect-kde-24.05.1.tar.xz
+Source0  : https://download.kde.org/stable/release-service/24.05.1/src/kdeconnect-kde-24.05.1.tar.xz
+Source1  : https://download.kde.org/stable/release-service/24.05.1/src/kdeconnect-kde-24.05.1.tar.xz.sig
 Source2  : BB463350D6EF31EF.pkey
 Summary  : Adds communication between KDE and your smartphone
 Group    : Development/Tools
@@ -115,15 +115,15 @@ chmod 700 .gnupg
 gpg --homedir .gnupg --import %{SOURCE2}
 gpg --homedir .gnupg --status-fd 1 --verify %{SOURCE1} %{SOURCE0} > gpg.status
 grep -E '^\[GNUPG:\] (GOODSIG|EXPKEYSIG) BB463350D6EF31EF' gpg.status
-%setup -q -n kdeconnect-kde-24.05.0
-cd %{_builddir}/kdeconnect-kde-24.05.0
+%setup -q -n kdeconnect-kde-24.05.1
+cd %{_builddir}/kdeconnect-kde-24.05.1
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1717449269
+export SOURCE_DATE_EPOCH=1718414359
 mkdir -p clr-build
 pushd clr-build
 export GCC_IGNORE_WERROR=1
@@ -175,7 +175,7 @@ FFLAGS="$CLEAR_INTERMEDIATE_FFLAGS"
 FCFLAGS="$CLEAR_INTERMEDIATE_FCFLAGS"
 ASFLAGS="$CLEAR_INTERMEDIATE_ASFLAGS"
 LDFLAGS="$CLEAR_INTERMEDIATE_LDFLAGS"
-export SOURCE_DATE_EPOCH=1717449269
+export SOURCE_DATE_EPOCH=1718414359
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/kdeconnect-kde
 cp %{_builddir}/kdeconnect-kde-%{version}/LICENSES/Apache-2.0.txt %{buildroot}/usr/share/package-licenses/kdeconnect-kde/81bf6d7df5e1fce2d1a8b3b97bb90cc33ad11593 || :
@@ -350,8 +350,8 @@ popd
 
 %files lib
 %defattr(-,root,root,-)
-/V3/usr/lib64/libkdeconnectcore.so.24.05.0
-/V3/usr/lib64/libkdeconnectpluginkcm.so.24.05.0
+/V3/usr/lib64/libkdeconnectcore.so.24.05.1
+/V3/usr/lib64/libkdeconnectpluginkcm.so.24.05.1
 /V3/usr/lib64/qt6/plugins/kdeconnect/kcms/kdeconnect_clipboard_config.so
 /V3/usr/lib64/qt6/plugins/kdeconnect/kcms/kdeconnect_findthisdevice_config.so
 /V3/usr/lib64/qt6/plugins/kdeconnect/kcms/kdeconnect_pausemusic_config.so
@@ -392,9 +392,9 @@ popd
 /V3/usr/lib64/qt6/plugins/plasma/kcms/systemsettings_qwidgets/kcm_kdeconnect.so
 /V3/usr/lib64/qt6/qml/org/kde/kdeconnect/libkdeconnectdeclarativeplugin.so
 /usr/lib64/libkdeconnectcore.so.24
-/usr/lib64/libkdeconnectcore.so.24.05.0
+/usr/lib64/libkdeconnectcore.so.24.05.1
 /usr/lib64/libkdeconnectpluginkcm.so.24
-/usr/lib64/libkdeconnectpluginkcm.so.24.05.0
+/usr/lib64/libkdeconnectpluginkcm.so.24.05.1
 /usr/lib64/qt6/plugins/kdeconnect/kcms/kdeconnect_clipboard_config.so
 /usr/lib64/qt6/plugins/kdeconnect/kcms/kdeconnect_findthisdevice_config.so
 /usr/lib64/qt6/plugins/kdeconnect/kcms/kdeconnect_pausemusic_config.so
