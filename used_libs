@@ -1,5 +1,7 @@
 libKF6ConfigCore.so.6
 libKF6CoreAddons.so.6
+libKF6Crash.so.6
+libKF6DBusAddons.so.6
 libKF6GuiAddons.so.6
 libKF6I18n.so.6
 libKF6IconThemes.so.6
@@ -12,9 +14,11 @@ libKF6KIOGui.so.6
 libKF6KIOWidgets.so.6
 libKF6ModemManagerQt.so.6
 libKF6Notifications.so.6
+libKF6People.so.6
 libKF6PulseAudioQt.so.5
 libKF6Service.so.6
 libKF6Solid.so.6
+libKF6StatusNotifierItem.so.6
 libKF6WidgetsAddons.so.6
 libKF6WindowSystem.so.6
 libQt6Bluetooth.so.6
